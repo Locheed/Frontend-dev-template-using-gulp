@@ -1,18 +1,21 @@
-# http://www.gnu.org/software/automake
+# Created by https://www.gitignore.io/api/windows
 
-Makefile.in
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
 
-# http://www.gnu.org/software/autoconf
+# Folder config file
+Desktop.ini
 
-/autom4te.cache
-/autoscan.log
-/autoscan-*.log
-/aclocal.m4
-/compile
-/config.h.in
-/configure
-/configure.scan
-/depcomp
-/install-sh
-/missing
-/stamp-h1
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
