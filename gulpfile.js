@@ -16,8 +16,8 @@ var gulp          = require('gulp'),
 // ** Default task to start watching filechanges of .sass, .scss and .js **
 // ** LiveReload browser **
 gulp.task('default', ['browserSync', 'sass'], function() {
-      gulp.watch('src/**/*.+(scss|sass)', ['sass']);
-      gulp.watch('src/*.html', browserSync.reload);
+      gulp.watch('src/sass/*.+(scss|sass)', ['sass']);
+      gulp.watch('*.html', browserSync.reload);
       gulp.watch('src/js/**/*.js', browserSync.reload);
       // Other watchers
     });
@@ -32,7 +32,7 @@ gulp.task('build', function (callback) {
 
 // ** Development plugins **
 gulp.task('sass', function() {
-  return gulp.src('src/**/*.+(scss|sass')
+  return gulp.src('src/sass/*.+(scss|sass)')
     .pipe(plumber({
         handleError: function (err) {
             console.log(err);
@@ -41,7 +41,7 @@ gulp.task('sass', function() {
     }))
     .pipe(sass()) // Using gulp-sass
     .pipe(plumber.stop())
-    .pipe(gulp.dest('src/css'))
+    .pipe(gulp.dest('dist/css'))
     .pipe(browserSync.reload({
       stream: true
     }))
@@ -50,7 +50,7 @@ gulp.task('sass', function() {
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: 'src'
+      baseDir: ''
     },
   })
 });
