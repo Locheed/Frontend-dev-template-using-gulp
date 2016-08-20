@@ -6,15 +6,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Mika Vesasto",
-  "license": "ISC",
-  "devDependencies": {
+  "author": "name of author <you.name@example.org>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+    "devDependencies": {
     "browser-sync": "^2.14.0",
     "del": "^2.2.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.12",
     "gulp-coffee": "^2.3.2",
-    "gulp-cssnano": "^2.1.2",
     "gulp-if": "^2.0.1",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.1.1",
