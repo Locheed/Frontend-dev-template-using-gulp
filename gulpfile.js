@@ -9,42 +9,56 @@ var gulp          = require('gulp'),
     runSequence   = require('run-sequence'),
     plumber       = require('gulp-plumber'),
     coffee        = require('gulp-coffee'),
-    useref        = require('gulp-useref'),
     uglify        = require('gulp-uglify'),
     cleanCSS      = require('gulp-clean-css'),
-    gulpIf        = require('gulp-if'),
-    del           = require('del');
+    del           = require('del'),
+    jshint        = require('gulp-jshint');
+
+// Build paths
+var jsFiles   = 'src/assets/js/**/*js',
+    jsDest    = 'build/assets/js',
+    jsVendor  = './src/assets/js/vendor/**/*.js',
+    cssFiles  = 'src/assets/css/*.+(scss|sass)',
+    cssDest   = 'build/assets/css',
+    fontFiles = 'src/assets/fonts',
+    fontDest  = 'build/assets/fonts',
+    imgFiles  = 'src/assets/img',
+    imgDest   = 'build/assets/img';
 
 
 // ** Default task to start watching filechanges of .sass, .scss and .js **
 // ** LiveReload browser **
-gulp.task('watch', ['browserSync', 'sass'], function() {
-      gulp.watch('assets/css/*.+(scss|sass)', ['sass']);
+gulp.task('default', ['browserSync', 'sass', 'jshint'], function() {
+      gulp.watch(cssFiles, ['sass']);
       gulp.watch('*.html', browserSync.reload);
-      gulp.watch('assets/js/*.js', browserSync.reload);
+      gulp.watch(jsFiles, browserSync.reload);
+      gulp.watch(jsFiles, ['jshint']);
       // Other watchers
     });
 
 // ** Build task to build project **
 gulp.task('build', function (callback) {
   runSequence('clean:build',
-    ['sass', 'useref', 'fonts', 'vendorJS', 'vendorCSS', 'images'],
+    ['jsFiles', 'fonts', 'jsVendor', 'minify-css', 'imagemin'],
     callback
   )
 });
 
 // ** Development plugins **
 gulp.task('sass', function() {
-  return gulp.src('assets/css/*.+(scss|sass)')
+  return gulp.src(cssFiles)
+
     .pipe(plumber({
         handleError: function (err) {
             console.log(err);
             this.emit('end');
         }
     }))
+    .pipe(sourcemaps.init())
     .pipe(sass.sync()) // Using gulp-sass
     .pipe(plumber.stop())
-    .pipe(gulp.dest('assets/css'))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(cssDest))
     .pipe(browserSync.reload({
       stream: true
     }))
@@ -58,9 +72,15 @@ gulp.task('browserSync', function() {
   })
 });
 
+gulp.task('jshint', function() {
+  return gulp.src(jsFiles)
+  .pipe(jshint())
+  .pipe(jshint.reporter('jshint-stylish'));
+});
+
 // ** Building plugins **
 gulp.task('autoprefixer', function() {
-  return gulp.src('./assets/css/*.css')
+  return gulp.src(cssDest)
     .pipe(plumber({
         handleError: function (err) {
             console.log(err);
@@ -69,36 +89,56 @@ gulp.task('autoprefixer', function() {
     }))
     .pipe(postcss([autoprefixer({ browsers: ['last 2 versions'] }) ]))
     .pipe(plumber.stop())
-    .pipe(gulp.dest('./build/assets/css'));
+    .pipe(gulp.dest(cssDest));
 });
 
-gulp.task('useref', function() {
-  return gulp.src('*.html')
-  .pipe(useref())
-  .pipe(gulpIf('*.js', uglify())) // Minifies only if it's a JavaScript file. No vendor files.
-  .pipe(gulpIf('*.css', cleanCSS())) // Minifies only if it's a CSS file. No vendor files.
-  .pipe(gulp.dest('build'))
+// ** Concanate and minify JS and CSS files.
+gulp.task('jsFiles', function() {
+  gulp.src([
+          jsFiles,
+          '!' + jsVendor
+      ])
+    .pipe(concat('scripts.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(jsDest));
 });
+
+gulp.task('jsVendor', function() {
+    gulp.src(jsVendor)
+    .pipe(concat('vendor.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(jsDest));
+});
+
+// Concanate and minify CSS
+gulp.task('minify-css', function() {
+    return gulp.src(cssDest)
+        .pipe(sourcemaps.init())
+        .pipe(cleanCSS({debug: true}, function(details) {
+            console.log(details.name + ': ' + details.stats.originalSize);
+            console.log(details.name + ': ' + details.stats.minifiedSize);
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(cssDest));
+});
+
+// Optimize images
+//gulp.task('imagemin', function() {
+//    gulp.src('src/assets/img/*')
+//        .pipe(imagemin())
+//        .pipe(gulp.dest('build/assets/img'))
+//});
+
 
 gulp.task('fonts', function() {       // Task copies possible fonts from dev to build
-  return gulp.src('assets/fonts/**/*')
-  .pipe(gulp.dest('build/assets/fonts'))
+  return gulp.src(fontFiles)
+  .pipe(gulp.dest(fontDest))
 });
 
-gulp.task('vendorJS', function() {       // Task copies possible vendor JS files from dev to build
-  return gulp.src('assets/js/vendor/*.js')
-  .pipe(gulp.dest('build/assets/js/vendor'))
-});
-
-gulp.task('vendorCSS', function() {       // Task copies possible vendor CSS files from dev to build
-  return gulp.src('assets/css/vendor/*.css')
-  .pipe(gulp.dest('build/assets/css/vendor'))
-});
-
-gulp.task('images', function() {       // Task copies possible image files from dev to build
-  return gulp.src('assets/img/*.{gif,jpg,png,svg}')
-  .pipe(gulp.dest('build/assets/img'))
-});
+//gulp.task('images', function() {       // Task copies possible image files from dev to build
+//  return gulp.src('assets/img/*.{gif,jpg,png,svg}')
+//  .pipe(gulp.dest('build/assets/img'))
+//});
 
 
 gulp.task('clean:build', function() {

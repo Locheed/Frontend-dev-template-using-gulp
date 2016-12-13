@@ -5,10 +5,7 @@
 
 ##### Advantage of using this template:
 
-- Start your projects faster
 - Preinstalled plugins for Gulp
-- JQuery and normalize.css comes preinstalled
-- Index.html, main.js and main.sass precreated
 
 ##### Features:
 
@@ -20,13 +17,11 @@
 - Refresh browser while developing
 
 
-
-
 ### Installation
 
   Files requires [Node.js](https://nodejs.org/) v4+ to run.
   Download files to your main project folder or clone repository with git clone.
-  
+
   Edit package.json (Change project name, authors name, repository url, etc.)
 
   Open terminal to your project folder.
@@ -40,10 +35,10 @@ There is only two commands for Gulp that is needed for your developing. When you
 
     $ gulp watch
 
-and for finalize your project 
+and for finalize your project
 
     $ gulp build
-    
+
 **Gulp watch** will start SASS/SCSS convert to CSS and automatic browser refresh. Also JavaScript files will be watched for changes.
 
 **Gulp build** will start concanate and minify process of your files. Also possible assets will be copied to build directory. **NOTE: This will delete build-folder and it's content before building!**
@@ -54,23 +49,24 @@ and for finalize your project
 Developing structure:
 ---------------------
 
-|-- assets
-    |-- img
-    |-- fonts
-    |-- css
-        |-- vendor
-            |-- normalize.css
-        |-- main.sass/scss
-        |-- main.css (sass generated)
-    |-- js
-        |-- vendor
-            |-- jquery-3.1.0.min.js
-        |-- main.js
-|-- index.html
-|-- gulpfile.js
-|-- package.json
-|-- README.md
-|-- LICENCE
+|-- src
+    |-- assets
+        |-- img
+        |-- fonts
+        |-- css
+            |-- vendor
+                |-- normalize.css included
+            |-- main.sass/scss
+            |-- main.css Sass generated
+        |-- js
+            |-- vendor
+                |-- vendor files here
+            |-- main.js
+    |-- indes.html
+    |-- gulpfile.js
+    |-- package.json
+    |-- README.md
+    |-- LICENCE
 
 Building structure:
 -------------------
@@ -82,16 +78,12 @@ Building structure:
         |-- css
             |-- vendor
                 |-- normalize.css
-    
+
             |-- main.css (sass generated, minifyed and concanated)
         |-- js
             |-- vendor
-                |-- jquery-3.1.0.min.js
+                |-- vendor files copied here
             |-- main.js (concanated and minifyed)
     |-- index.html
 
 ```
-
-
-    
-    

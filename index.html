@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <!-- Vendor CSS files. Not going to be minified or concanated. Remove if no need. -->
-    <link rel="stylesheet" href="assets/css/vendor/normalize.css">
+    <!-- Vendor CSS files. Remove if no need. -->
+    <link rel="stylesheet" href="src/assets/css/vendor/normalize.css">
     <!-- End vendor CSS files -->
-    <!--build:css assets/css/main.min.css-->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <!--endbuild-->
+    <!-- Main stylesheet-->
+    <link rel="stylesheet" href="build/assets/css/main.css">
+    <!-- End stylesheet files -->
   </head>
   <header>
     <div class="head">
@@ -25,8 +25,9 @@
         <ul>
           <li>Start your projects faster</li>
           <li>Preinstalled plugins for Gulp</li>
-          <li>JQuery and normalize.css comes preinstalled</li>
+          <li>Normalize.css comes preinstalled</li>
           <li>Index.html, main.js and main.sass precreated</li>
+          <li>Folder structure already created</li>
         </ul>
       </div>
       <div class="col-1">
@@ -41,18 +42,15 @@
         </ul>
       </div>
     </div>
-    <h3>Note: If you have no use for vendor JS or vendor CSS files. Remove include lines from index.html</h3>
+    <h3>Note: If you have no use normalize.css. Remove include lines from index.html</h3>
 
 
   <hr class="line">
   <footer class="bottom-text">Please see the <a href="#">GitHub</a> repository for any details and bugs.</footer>
 
 
-    <!-- Vendor JS files. Not going to be minified or concanated. Remove if no need.  -->
-    <script src="assets/js/vendor/jquery-3.1.0.min.js"></script>
-    <!-- End vendor Js files -->
-    <!--build:js assets/js/main.min.js-->
-    <script src="assets/js/main.js"></script>
-    <!--endbuild-->
+    <!--Main js file-->
+    <script src="src/assets/js/main.js"></script>
+    <!--End js files-->
   </body>
 </html>
