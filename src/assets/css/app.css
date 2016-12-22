@@ -1,3 +1,10 @@
+/* IMPORT ALL PARTIAL SASS FILES */
+/* GLOBAL VARIABLES */
+/* IMPORT PLUGINS */
+/* IMPORT BASE FILES */
+/* BASE STYLES */
+/* IMPORT LAYOUT FILES */
+/* LAYOUT STYLES */
 h1, h2, h3 {
   font-family: monospace;
   text-align: center; }
@@ -32,13 +39,16 @@ h2 {
 .listing {
   margin-top: 50px;
   width: auto;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center; }
+  -ms-flex-pack: center;
+      justify-content: center; }
   .listing .col-1 {
     margin-right: 30px; }
   @media (max-width: 645px) {
     .listing {
-      flex-direction: column; } }
+      -ms-flex-direction: column;
+          flex-direction: column; } }
 
 p {
   font-weight: bold;
@@ -66,3 +76,7 @@ a {
   color: #69D2E7; }
   a:hover {
     color: #126272; }
+
+/* IMPORT MODULES */
+
+/*# sourceMappingURL=app.css.map */

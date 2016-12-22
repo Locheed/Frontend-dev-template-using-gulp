@@ -56,13 +56,28 @@ Developing structure:
         |-- css
             |-- vendor
                 |-- normalize.css included
-            |-- main.sass/scss
-            |-- main.css Sass generated
+            |-- app.css
+            |-- app.css.map
         |-- js
             |-- vendor
                 |-- vendor files here
             |-- main.js
-    |-- indes.html
+        |-- sass
+            |-- 0-plugins
+                |-- _plugins-dir.sass
+            |-- 1-base
+                |-- _base-dir.sass
+                |-- _base.sass
+            |-- 2-layouts
+                |-- _content.sass
+                |-- _footer.sass
+                |-- _header.sass
+                |-- _layouts-dir.sass
+            |-- 3-modules
+                |-- _modules.dir.sass
+            |-- _variables.sass
+            |-- app.sass
+    |-- index.html
     |-- gulpfile.js
     |-- package.json
     |-- README.md
